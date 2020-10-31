@@ -9,7 +9,8 @@
   <style>
   	body {
   		font-family: Arial;
-  	}
+  	 font-size: 0.5cm;
+    }
 
   	.dot {
   	  height: 0.5cm;
@@ -19,6 +20,21 @@
   	  display: inline-block;
   	  margin: 0.1cm;
   	}
+
+    parent-div {
+      font-size: 1cm;
+    }
+
+    .button {
+      padding: 0.3cm;
+      padding-left: 1cm;
+      padding-right: 1cm;
+      font-size: 0.5cm;
+    }
+
+    p {
+      font-size: 0.5cm;
+    }
   </style>
 
 
@@ -29,7 +45,7 @@
 			<h1>Test your compound interest guessing skills</h1>
 		<div id="start-div" style="display: block;">
 			<p>Every 15 seconds you'll get a new question. Guess the answer to the best of your ability, if it's in 10% of the correct answer it will be correct.</p>
-			<button onclick="start()" type="button">START</button>
+			<button class="button" onclick="start()" type="button">START</button>
 			<p>
 				Made by <a  target="_blank"  href="https://twitter.com/oliver_marsh1">Oliver Marsh</a> | 
 				Suggested by Taimur on <a  target="_blank" href="https://notoverthinking.com/">Not Over Thinking It</a>.
@@ -37,15 +53,15 @@
 		</div>
 		
 		<div id="parent-div" style="display: none;">
-			<p id="correctTally">0/0 correct</p>
-			<p id="question"></p>
-			<p id="secondElapsed" style="font-weight: bold;">15 seconds left</p>
+			<p id="correctTally" style="font-size: 0.8cm">0/0 correct</p>
+			<p id="question" style="font-size: 0.8cm"></p>
+			<p id="secondElapsed" style="font-weight: bold; font-size: 0.8cm;">15 seconds left</p>
 			<form action="#" onsubmit="submitAnswer(); return false;">
-			  <input type="number" id="answer" step="0.01" name="answer"><br><br>
-			  <input type="submit" value="Submit">
+			  <input class="button" type="number" id="answer" step="0.01" name="answer"><br><br>
+			  <input class="button" type="submit" value="Submit">
 			</form>
 			<div style="padding-top: 0.6cm;" id="circleDiv"></div>
-			<button onclick="pasuePlayTimer()" type="button">Toggle Timer</button>
+			<button class="button" onclick="pasuePlayTimer()" type="button">Toggle Timer</button>
 		</div>
 		
 	</div>
