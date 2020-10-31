@@ -107,15 +107,23 @@
 
   		let f1 = 100;
   		let f2 = 20;
+      let f3 = 0.4;
 
   		if((totalQuestions % 5) == 0) {
   			f1 = 10000;
   			f2 = 30;
+        f3 = 0.2;
   		}
+      if((totalQuestions % 4) == 0) {
+        f1 = 100000;
+        f2 = 20;
+        f3 = 0.1;
+      }
+
 
   		P = Math.floor(f1*Math.random());
   		t = Math.floor(f2*Math.random());
-  		i = (0.4*Math.random());
+  		i = (f3*Math.random());
   		questionDiv.innerHTML = "You invest $" + P + " over a " + t + " years, at " + (i*100).toFixed(1) + "% per year.";
   	}
 
