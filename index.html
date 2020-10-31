@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Compound Interest</title>
+  <meta name="description" content="Compund Interest">
+  <meta name="author" content="Oliver Marsh">
+  <style>
+  	body {
+  		font-family: Arial;
+  	}
+
+  	.dot {
+  	  height: 0.5cm;
+  	  width: 0.5cm;
+  	  background-color: #bbb;
+  	  border-radius: 50%;
+  	  display: inline-block;
+  	  margin: 0.1cm;
+  	}
+  </style>
+
+
+</head>
+
+<body>
+	<div style="padding: 1cm; padding-top: 0;">
+			<h1>Test your compound interest guessing skills 💪</h1>
+		<div id="start-div" style="display: block;">
+			<p>Every 15 seconds you'll get a new question. Guess the answer to the best of your ability, if it's in 10% of the correct answer it will be correct.</p>
+			<button onclick="start()" type="button">START</button>
+			<p>
+				Made by <a  target="_blank"  href="https://twitter.com/oliver_marsh1">Oliver Marsh</a> | 
+				Suggested by Taimur on <a  target="_blank" href="https://notoverthinking.com/">Not Over Thinking It</a>.
+			</p>
+		</div>
+		
+		<div id="parent-div" style="display: none;">
+			<p id="correctTally">0/0 correct</p>
+			<p id="question"></p>
+			<p id="secondElapsed" style="font-weight: bold;">15 seconds left</p>
+			<form action="#" onsubmit="submitAnswer(); return false;">
+			  <input type="number" id="answer" step="0.01" name="answer"><br><br>
+			  <input type="submit" value="Submit">
+			</form>
+			<div style="padding-top: 0.6cm;" id="circleDiv"></div>
+			<button onclick="pasuePlayTimer()" type="button">Toggle Timer</button>
+		</div>
+		
+	</div>
+  <script>
+  	let totalQuestions = 0;
+  	let correctQs = 0;
+  	let correctTallyDiv = document.getElementById("correctTally");
+  	let questionDiv = document.getElementById("question");
+  	let answerDiv = document.getElementById("answer");
+  	let circleDiv = document.getElementById("circleDiv");
+  	let secDiv = document.getElementById("secondElapsed");
+  	let parentDiv = document.getElementById("parent-div");
+  	let startDiv = document.getElementById("start-div");
+  	
+  	let P = 0;
+  	let t = 0;
+  	let i = 0;
+  	let seconds = 0;
+  	let timerOn = true;
+  	newQuestion();
+
+  	setInterval(secondElapsed, 1000);
+
+  	function calculateValue() {
+  		let power = 1;
+  		let val = (1 + parseFloat(i));
+
+  		for (let y = 0; y < t; y++) {
+  			power *= val;
+
+  		}
+
+  		let result = parseFloat(P)*power;
+  		return result;
+  	}
+
+  	function pasuePlayTimer() {
+  		timerOn = !timerOn;
+  	}
+
+  	function secondElapsed() {
+  		if(timerOn) {
+	  		seconds++;
+
+	  		if(seconds >= 15) {
+	  			seconds = 0;
+	  			submitAnswer();
+	  		}
+
+	  		secDiv.innerHTML = (16 - seconds) + " seconds left";  
+  		}
+
+
+  	}
+
+  	function newQuestion() {
+  		seconds = 0;
+  		totalQuestions++;
+
+  		let f1 = 100;
+  		let f2 = 20;
+
+  		if((totalQuestions % 5) == 0) {
+  			f1 = 10000;
+  			f2 = 30;
+  		}
+
+  		P = Math.floor(f1*Math.random());
+  		t = Math.floor(f2*Math.random());
+  		i = (0.4*Math.random());
+  		questionDiv.innerHTML = "You invest $" + P + " over a " + t + " years, at " + (i*100).toFixed(1) + "% per year.";
+  	}
+
+  	 function start() {
+  	 	parentDiv.style.display = "block";
+  	 	startDiv.style.display = "none";
+  	 }
+
+  	function submitAnswer() {
+  		let answer = calculateValue();
+  		let tenPercentRange = 0.1*answer;
+  		let userValue = answerDiv.value;
+  			
+  		let color = "background-color: red;";
+  		if(userValue > (answer - tenPercentRange) && userValue < answer + tenPercentRange) {
+  			correctQs++;
+  			color = "background-color: green;";
+  		} else {
+
+  		}
+
+  		answerDiv.value = "";
+
+  		correctTally.innerHTML = correctQs + "/" + totalQuestions + " correct" + "<br>Last answer: " + answer.toFixed(2);
+
+  		circleDiv.innerHTML += "<span style='" + color + "' class='dot'></span>";
+
+  		newQuestion();
+
+  		return false;
+
+  	}
+
+
+
+
+
+  </script>
+</body>
+</html>
